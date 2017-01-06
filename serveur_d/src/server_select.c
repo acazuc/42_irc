@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 14:28:34 by acazuc            #+#    #+#             */
-/*   Updated: 2017/01/06 16:42:13 by acazuc           ###   ########.fr       */
+/*   Updated: 2017/01/06 18:20:18 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static void	fill_sets(t_env *env)
 	while (clients)
 	{
 		FD_SET(clients->client->fd, &env->sets[0]);
-		FD_SET(clients->client->fd, &env->sets[1]);
+		if (clients->client->buf_w.pos)
+			FD_SET(clients->client->fd, &env->sets[1]);
 		FD_SET(clients->client->fd, &env->sets[2]);
 		if (clients->client->fd > env->max_fd)
 			env->max_fd = clients->client->fd;
@@ -38,12 +39,8 @@ static void	fill_sets(t_env *env)
 
 void	server_select(t_env *env)
 {
-	struct timeval	tv;
-
-	tv.tv_sec = 0;
-	tv.tv_usec = 10000;
 	fill_sets(env);
 	if (select(env->max_fd + 1, &env->sets[0], &env->sets[1]
-				, &env->sets[2], &tv) == -1)
+				, &env->sets[2], NULL) == -1)
 		ERROR("select() failed");
 }

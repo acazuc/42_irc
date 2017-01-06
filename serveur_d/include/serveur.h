@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 13:40:04 by acazuc            #+#    #+#             */
-/*   Updated: 2017/01/06 16:43:57 by acazuc           ###   ########.fr       */
+/*   Updated: 2017/01/06 20:32:43 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,14 @@ int		client_interp_cmd(t_env *env, t_client *client, char *cmd);
 int		client_interp_msg(t_env *env, t_client *client, char *msg);
 int		chan_send_msg(t_chan *chan, char *author, char *msg);
 void	chan_remove_client(t_chan *chan, t_client *client);
+void	chan_add_client(t_chan *chan, t_client *client);
 void	error_quit(char *e, char *f, int l);
+int		cmd_join(t_env *env, t_client *client, char **data);
+int		cmd_leave(t_env *env, t_client *client, char **data);
+int		cmd_who(t_env *env, t_client *client, char **data);
+int		cmd_nick(t_env *env, t_client *client, char **data);
+int		cmd_msg(t_env *env, t_client *client, char **data);
+t_chan	*chan_create(t_env *env, char *name);
 
 struct				s_buffer
 {
@@ -76,7 +83,7 @@ struct				s_client
 	t_buffer		buf_w;
 	t_chan_list		*chans;
 	t_chan			*chan;
-	char			name[9];
+	char			name[10];
 };
 
 struct				s_client_list
@@ -87,7 +94,7 @@ struct				s_client_list
 
 struct				s_chan
 {
-	char			name[9];
+	char			name[10];
 	t_client_list	*clients;
 };
 

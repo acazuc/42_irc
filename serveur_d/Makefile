@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2017/01/06 16:43:30 by acazuc           ###   ########.fr        #
+#    Updated: 2017/01/06 20:28:55 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,8 +40,15 @@ SRCS_NAME = main.c \
 			server_tick.c \
 			error_quit.c \
 			parse_port.c \
-			chan_client_remove.c \
+			chan_remove_client.c \
 			chan_send_msg.c \
+			chan_create.c \
+			chan_add_client.c \
+			cmd_who.c \
+			cmd_nick.c \
+			cmd_msg.c \
+			cmd_leave.c \
+			cmd_join.c \
 
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))
 

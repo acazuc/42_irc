@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buffer_read.c                                      :+:      :+:    :+:   */
+/*   chan_add_client.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/06 14:11:14 by acazuc            #+#    #+#             */
-/*   Updated: 2017/01/06 19:36:34 by acazuc           ###   ########.fr       */
+/*   Created: 2017/01/06 20:27:17 by acazuc            #+#    #+#             */
+/*   Updated: 2017/01/06 20:28:46 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "serveur.h"
 
-int		buffer_read(t_buffer *buffer, void *data, size_t len)
+void	chan_add_client(t_chan *chan, t_client *client)
 {
-	if (buffer->pos + len > buffer->lim)
-		return (0);
-	ft_memcpy(data, buffer->data + buffer->pos, len);
-	buffer->pos += len;
-	return (1);
+	t_client_list	*new;
+
+	if (!(new = malloc(sizeof(*new))))
+		ERROR("malloc failed");
+	new->client = client;
+	new->next = chan->clients;
+	chan->clients = new;
 }
