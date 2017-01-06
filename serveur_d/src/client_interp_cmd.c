@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 15:49:45 by acazuc            #+#    #+#             */
-/*   Updated: 2017/01/06 21:25:57 by acazuc           ###   ########.fr       */
+/*   Updated: 2017/01/06 21:38:22 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int			client_interp_cmd(t_env *env, t_client *client, char *cmd)
 		res = cmd_msg(env, client, data);
 	else
 		res = buffer_write_str(&client->buf_w
-					, "Invalid command") == 1 ? 1 : 0;
+					, "\033[1;31mInvalid command\033[0m\n");
 	do_free(data);
 	return (res);
 }

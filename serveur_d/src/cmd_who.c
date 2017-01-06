@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 17:45:06 by acazuc            #+#    #+#             */
-/*   Updated: 2017/01/06 19:50:18 by acazuc           ###   ########.fr       */
+/*   Updated: 2017/01/06 21:38:39 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		cmd_who(t_env *env, t_client *client, char **data)
 	lst = client->chan->clients;
 	while (lst)
 	{
-		if (!buffer_write_str(&client->buf_w, client->name))
+		if (!buffer_write_str(&client->buf_w, lst->client->name))
 			return (0);
 		if (lst->next)
 		{
