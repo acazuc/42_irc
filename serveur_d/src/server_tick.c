@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 14:59:38 by acazuc            #+#    #+#             */
-/*   Updated: 2017/01/06 15:59:11 by acazuc           ###   ########.fr       */
+/*   Updated: 2017/01/06 16:42:30 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	server_tick(t_env *env)
 	while (lst)
 	{
 		nxt = lst->next;
-		if (!client_tick(env, &lst->client))
+		if (!client_tick(env, lst->client))
 		{
 			ft_putstr("client quit\n");
-			client_remove(env, &lst->client);
+			client_remove(env, lst->client);
 		}
 		lst = nxt;
 	}

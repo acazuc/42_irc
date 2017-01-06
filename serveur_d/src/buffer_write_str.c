@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client_interp_msg.c                                :+:      :+:    :+:   */
+/*   buffer_write_str.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/06 15:47:43 by acazuc            #+#    #+#             */
-/*   Updated: 2017/01/06 16:31:53 by acazuc           ###   ########.fr       */
+/*   Created: 2017/01/06 16:28:05 by acazuc            #+#    #+#             */
+/*   Updated: 2017/01/06 16:30:42 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "serveur.h"
 
-int		client_interp_msg(t_env *env, t_client *client, char *msg)
+int		buffer_write_str(t_buffer *buffer, char *str)
 {
-	if (client->chan == NULL)
-	{
-		if (!buffer_write_str(&client->buf_w
-					, "You must join a channel with /chan\n"))
-			return (0);
-	}
-	chan_send_msg(client->chan, msg);
-	return (1);
-	(void)env;
+	return (buffer_write(buffer, str, ft_strlen(str)));
 }

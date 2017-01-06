@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 14:00:15 by acazuc            #+#    #+#             */
-/*   Updated: 2017/01/06 16:06:03 by acazuc           ###   ########.fr       */
+/*   Updated: 2017/01/06 16:41:15 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@ void	client_add(t_env *env, int fd)
 	if (!(new = malloc(sizeof(*new))))
 		ERROR("malloc failed");
 	ft_memset(new, 0, sizeof(new));
-	new->client.fd = fd;
-	new->client.buf_r.lim = 0;
-	new->client.buf_r.cap = BUF_SIZE;
-	new->client.buf_w.lim = BUF_SIZE;
-	new->client.buf_w.cap = BUF_SIZE;
+	if (!(new->client = malloc(sizeof(*new->client))))
+		ERROR("malloc failed");
+	ft_memset(new->client, 0, sizeof(*new->client));
+	new->client->fd = fd;
+	new->client->buf_r.lim = 0;
+	new->client->buf_r.cap = BUF_SIZE;
+	new->client->buf_w.lim = BUF_SIZE;
+	new->client->buf_w.cap = BUF_SIZE;
 	new->next = env->clients;
 	env->clients = new;
 }

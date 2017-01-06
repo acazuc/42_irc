@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 13:40:04 by acazuc            #+#    #+#             */
-/*   Updated: 2017/01/06 15:52:07 by acazuc           ###   ########.fr       */
+/*   Updated: 2017/01/06 16:43:57 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	server_select(t_env *env);
 void	server_tick(t_env *env);
 int		buffer_write(t_buffer *buffer, void *data, size_t len);
 int		buffer_read(t_buffer *buffer, void *data, size_t len);
+int		buffer_write_str(t_buffer *buffer, char *str);
 void	buffer_flip(t_buffer *buffer);
 void	buffer_clear(t_buffer *buffer);
 int		client_write(t_client *client);
@@ -54,8 +55,10 @@ void	client_add(t_env *env, int fd);
 void	client_remove(t_env *env, t_client *client);
 int		client_tick(t_env *env, t_client *client);
 int		client_interp(t_env *env, t_client *client);
-int		client_interp_cmd(t_env *env, t_client *client);
-int		client_interp_msg(t_env *env, t_client *client);
+int		client_interp_cmd(t_env *env, t_client *client, char *cmd);
+int		client_interp_msg(t_env *env, t_client *client, char *msg);
+int		chan_send_msg(t_chan *chan, char *author, char *msg);
+void	chan_remove_client(t_chan *chan, t_client *client);
 void	error_quit(char *e, char *f, int l);
 
 struct				s_buffer
@@ -78,7 +81,7 @@ struct				s_client
 
 struct				s_client_list
 {
-	t_client		client;
+	t_client		*client;
 	t_client_list	*next;
 };
 
@@ -90,7 +93,7 @@ struct				s_chan
 
 struct				s_chan_list
 {
-	t_chan			chan;
+	t_chan			*chan;
 	t_chan_list		*next;
 };
 

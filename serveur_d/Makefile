@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2017/01/06 15:47:37 by acazuc           ###   ########.fr        #
+#    Updated: 2017/01/06 16:43:30 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS_PATH = src/
 SRCS_NAME = main.c \
 			buffer_read.c \
 			buffer_write.c \
+			buffer_write_str.c \
 			buffer_clear.c \
 			buffer_flip.c \
 			client_add.c \
@@ -39,6 +40,8 @@ SRCS_NAME = main.c \
 			server_tick.c \
 			error_quit.c \
 			parse_port.c \
+			chan_client_remove.c \
+			chan_send_msg.c \
 
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))
 
