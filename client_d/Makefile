@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2017/01/06 13:36:13 by acazuc           ###   ########.fr        #
+#    Updated: 2017/01/16 18:27:39 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,11 @@ INCLUDES_PATH = include/
 SRCS_PATH = src/
 
 SRCS_NAME = main.c \
+			do_connect.c \
+			looping.c \
+			error_quit.c \
+			read_stdin.c \
+			check_connect.c \
 
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))
 

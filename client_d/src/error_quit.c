@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error_quit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/06 21:35:56 by acazuc            #+#    #+#             */
-/*   Updated: 2017/01/16 17:36:00 by acazuc           ###   ########.fr       */
+/*   Created: 2017/01/06 14:24:00 by acazuc            #+#    #+#             */
+/*   Updated: 2017/01/16 17:34:25 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "client.h"
 
-int		main(int ac, char **av)
+void	error_quit(char *error_message, char *file, int line)
 {
-	t_env	env;
-
-	ft_memset(&env, 0, sizeof(env));
-	if ((env.fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) == -1)
-		ERROR("socket() failed");
-	if (ac == 2)
-		env.connected = do_connect(&env, av[1], "4242");
-	else if (ac == 3)
-		env.connected = do_connect(&env, av[1], av[2]);
-	else
-		env.connected = 0;
-	while (1)
-	{
-		looping(&env);
-	}
+	ft_putstr_fd("\033[1;31m", 2);
+	ft_putstr_fd(error_message, 2);
+	ft_putstr_fd(" (", 2);
+	ft_putstr_fd(file, 2);
+	ft_putchar_fd(':', 2);
+	ft_putnbr_fd(line, 2);
+	ft_putchar_fd(')', 2);
+	ft_putchar_fd('\n', 2);
+	ft_putstr_fd("\033[0;0m", 2);
+	exit(EXIT_FAILURE);
 }

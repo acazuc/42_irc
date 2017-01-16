@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   check_connect.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/06 21:35:56 by acazuc            #+#    #+#             */
-/*   Updated: 2017/01/16 17:36:00 by acazuc           ###   ########.fr       */
+/*   Created: 2017/01/16 18:26:53 by acazuc            #+#    #+#             */
+/*   Updated: 2017/01/16 18:30:30 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "client.h"
 
-int		main(int ac, char **av)
+static ssize_t	get_pos(t_env *env)
 {
-	t_env	env;
+	void	*pos;
 
-	ft_memset(&env, 0, sizeof(env));
-	if ((env.fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) == -1)
-		ERROR("socket() failed");
-	if (ac == 2)
-		env.connected = do_connect(&env, av[1], "4242");
-	else if (ac == 3)
-		env.connected = do_connect(&env, av[1], av[2]);
-	else
-		env.connected = 0;
-	while (1)
-	{
-		looping(&env);
-	}
+	pos = memchr(env->buf_stdin.data, '\t', env->buf_stdin.pos);
+	if (!pos)
+		return (-1);
+	return (pos - env->buf_stdin.data);
+}
+
+void	check_connect(t_env *env)
+{
+	ssize_t		pos;
+
+	if ((pos = get_pos(env) == -1))
+		return ;
 }
