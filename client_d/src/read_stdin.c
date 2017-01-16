@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 18:01:05 by acazuc            #+#    #+#             */
-/*   Updated: 2017/01/16 18:26:25 by acazuc           ###   ########.fr       */
+/*   Updated: 2017/01/16 18:40:11 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,7 @@ void	read_stdin(t_env *env)
 	if (readed == 0)
 		ERROR("stdin closed");
 	env->buf_stdin.pos += readed;
+	env->buf_stdin.lim = env->buf_stdin.pos;
+	env->buf_stdin.pos = 0;
 	check_connect(env);
 }

@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 16:30:04 by acazuc            #+#    #+#             */
-/*   Updated: 2017/01/16 18:01:01 by acazuc           ###   ########.fr       */
+/*   Updated: 2017/01/16 18:44:16 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void		do_select(t_env *env)
 		env->maxfd = env->fd + 1;
 		FD_SET(env->fd, &env->sets[0]);
 		FD_SET(env->fd, &env->sets[2]);
-		if (env->buf.pos != env->buf.lim)
+		if (env->buf_write.pos != env->buf_write.lim)
 			FD_SET(env->fd, &env->sets[1]);
 	}
 	if (select(env->maxfd, &env->sets[0], &env->sets[1], &env->sets[2]
@@ -37,4 +37,5 @@ void	looping(t_env *env)
 {
 	do_select(env);
 	read_stdin(env);
+	ft_putstr("yay!\n");
 }
