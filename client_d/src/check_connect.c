@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 18:26:53 by acazuc            #+#    #+#             */
-/*   Updated: 2017/01/17 18:37:26 by acazuc           ###   ########.fr       */
+/*   Updated: 2017/01/17 19:14:59 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static ssize_t	get_pos(t_env *env)
 {
 	void	*pos;
 
-	pos = memchr(env->buf_stdin.data, '\n', env->buf_stdin.lim);
+	pos = ft_memchr(env->buf_stdin.data, '\n', env->buf_stdin.lim);
 	if (!pos)
 		return (-1);
 	return ((unsigned long)pos - (unsigned long)env->buf_stdin.data);
@@ -86,7 +86,7 @@ void			check_connect(t_env *env)
 		flush_to(env, pos);
 		return ;
 	}
-	if (memcmp(env->buf_stdin.data, "/connect", 8))
+	if (ft_memcmp(env->buf_stdin.data, "/connect", 8))
 	{
 		flush_to(env, pos);
 		return ;

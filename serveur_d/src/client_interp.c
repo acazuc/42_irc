@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 15:27:29 by acazuc            #+#    #+#             */
-/*   Updated: 2017/01/06 19:43:34 by acazuc           ###   ########.fr       */
+/*   Updated: 2017/01/17 19:17:03 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	get_pos(void *data, size_t len, size_t *val)
 {
 	void	*re;
 
-	re = memchr(data, '\n', len);
+	re = ft_memchr(data, '\n', len);
 	if (re == NULL)
 		*val = BUF_SIZE + 1;
 	else
