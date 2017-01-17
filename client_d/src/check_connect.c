@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 18:26:53 by acazuc            #+#    #+#             */
-/*   Updated: 2017/01/16 19:07:29 by acazuc           ###   ########.fr       */
+/*   Updated: 2017/01/17 17:36:16 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,18 @@ static void		flush_to(t_env *env, ssize_t pos)
 	size_t	len;
 
 	len = pos + 1;
+	if (!env->connected)
+	{
+		ft_putstr("\033[1;31mYou must be connected first\033[0m\n");
+		env->buf_stdin.pos += len;
+		return ;
+	}
 	if (env->buf_write.lim - env->buf_write.pos < len)
 		len = env->buf_write.lim - env->buf_write.pos;
 	ft_memcpy(env->buf_write.data + env->buf_write.pos
 			, env->buf_stdin.data, len);
 	env->buf_write.pos += len;
 	env->buf_stdin.pos += len;
-	ft_memcpy(env->buf_stdin.data, env->buf_stdin.data + env->buf_stdin.pos
-			, env->buf_stdin.lim - env->buf_stdin.pos);
-	env->buf_stdin.lim -= env->buf_stdin.pos;
-	env->buf_stdin.pos = 0;
 }
 
 static void		free_data(char **data)
@@ -58,13 +60,17 @@ static void		parse_cmd(t_env *env, char *cmd)
 
 	if (!(data = ft_strsplit(cmd, ' ')))
 		ERROR("ft_strsplit() failed");
-	if (!data[0] || !data[1] || !data[2])
+	free(cmd);
+	if (!data[0] || !data[1])
 	{
-		ft_putstr("\033[1;31mYou must specify a host and a port\033[0m\n");
+		ft_putstr("\033[1;31mYou must specify a host\033[0m\n");
 		free_data(data);
 		return ;
 	}
-	env->connected = do_connect(env, data[1], data[2]);
+	if (!data[2])
+		do_connect(env, data[1], "4242");
+	else
+		do_connect(env, data[1], data[2]);
 	free_data(data);
 }
 
@@ -73,20 +79,15 @@ void			check_connect(t_env *env)
 	ssize_t		pos;
 	char		*cmd;
 
-	ft_putendl("1");
 	if ((pos = get_pos(env)) == -1)
 		return ;
-	ft_putendl("2");
-	ft_putnbr(pos);
 	if (pos < 8)
 	{
-		ft_putendl("Nope!:(");
 		flush_to(env, pos);
 		return ;
 	}
 	if (memcmp(env->buf_stdin.data, "/connect", 8))
 	{
-		ft_putendl("Nope!");
 		flush_to(env, pos);
 		return ;
 	}

@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2017/01/16 18:27:39 by acazuc           ###   ########.fr        #
+#    Updated: 2017/01/17 14:22:45 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,8 @@ SRCS_NAME = main.c \
 			error_quit.c \
 			read_stdin.c \
 			check_connect.c \
+			send_socket.c \
+			read_socket.c \
 
 SRCS = $(addprefix $(SRCS_PATH), $(SRCS_NAME))
 

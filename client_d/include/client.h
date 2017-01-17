@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 21:35:14 by acazuc            #+#    #+#             */
-/*   Updated: 2017/01/16 18:27:31 by acazuc           ###   ########.fr       */
+/*   Updated: 2017/01/17 14:45:50 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,13 @@
 typedef struct s_env	t_env;
 typedef struct s_buffer	t_buffer;
 
-int		do_connect(t_env *env, char *host, char *port);
+void	do_connect(t_env *env, char *host, char *port);
 void	looping(t_env *env);
 void	error_quit(char *e, char *f, int l);
 void	read_stdin(t_env *env);
 void	check_connect(t_env *env);
+void	send_socket(t_env *env);
+void	read_socket(t_env *env);
 
 struct			s_buffer
 {
@@ -58,6 +60,7 @@ struct			s_env
 	int			maxfd;
 	t_buffer	buf_write;
 	t_buffer	buf_stdin;
+	t_buffer	buf_read;
 };
 
 #endif

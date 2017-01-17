@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 21:46:03 by acazuc            #+#    #+#             */
-/*   Updated: 2017/01/16 17:34:05 by acazuc           ###   ########.fr       */
+/*   Updated: 2017/01/17 17:10:11 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,28 +25,45 @@ static int	valid_port(char *port)
 	return (1);
 }
 
-int			do_connect(t_env *env, char *host, char *port)
+static int	do_do(t_env *env, struct sockaddr_in *sock)
 {
-	struct hostent		*hostent;
-	struct sockaddr_in	sock;
-
-	if (!valid_port(port))
-	{
-		ft_putstr("\033[1;31mInvalid port\033[0m\n");
-		return (0);
-	}
-	if (!(hostent = gethostbyname(host))
-			|| !inet_aton(hostent->h_addr, &sock.sin_addr))
-	{
-		ft_putstr("\033[1;31mInvalid ip address\033[0m\n");
-		return (0);
-	}
-	sock.sin_port = htons(atoi(port));
-	sock.sin_family = AF_INET;
-	if (connect(env->fd, (struct sockaddr*)&sock, sizeof(sock)) == -1)
+	if (env->fd)
+		close(env->fd);
+	if ((env->fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) == -1)
+		ERROR("socket() failed");
+	if (connect(env->fd, (struct sockaddr*)sock, sizeof(*sock)) == -1)
 	{
 		ft_putstr("\033[1;31mFailed to connect\033[0m\n");
 		return (0);
 	}
 	return (1);
+}
+
+void		do_connect(t_env *env, char *host, char *port)
+{
+	struct hostent		*hostent;
+	struct sockaddr_in	sock;
+
+	env->connected = 0;
+	if (!valid_port(port))
+	{
+		ft_putstr("\033[1;31mInvalid port\033[0m\n");
+		return ;
+	}
+	if (!(hostent = gethostbyname(host)))
+	{
+		ft_putstr("\033[1;31mInvalid ip address\033[0m\n");
+		return ;
+	}
+	ft_memset(&sock, 0, sizeof(sock));
+	ft_memcpy(&sock.sin_addr, hostent->h_addr, hostent->h_length);
+	sock.sin_port = htons(atoi(port));
+	sock.sin_family = AF_INET;
+	if (!do_do(env, &sock))
+	{
+		return ;
+	}
+	env->connected = 1;
+	env->buf_write.pos = 0;
+	env->buf_write.lim = BUF_SIZE;
 }

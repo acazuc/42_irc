@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 16:30:04 by acazuc            #+#    #+#             */
-/*   Updated: 2017/01/16 18:44:16 by acazuc           ###   ########.fr       */
+/*   Updated: 2017/01/17 17:36:31 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void		do_select(t_env *env)
 		env->maxfd = env->fd + 1;
 		FD_SET(env->fd, &env->sets[0]);
 		FD_SET(env->fd, &env->sets[2]);
-		if (env->buf_write.pos != env->buf_write.lim)
+		if (env->buf_write.pos)
 			FD_SET(env->fd, &env->sets[1]);
 	}
 	if (select(env->maxfd, &env->sets[0], &env->sets[1], &env->sets[2]
@@ -36,6 +36,20 @@ static void		do_select(t_env *env)
 void	looping(t_env *env)
 {
 	do_select(env);
+	if (FD_ISSET(0, &env->sets[2]))
+		ERROR("broken stdin");
 	read_stdin(env);
-	ft_putstr("yay!\n");
+	if (env->connected)
+	{
+		if (FD_ISSET(env->fd, &env->sets[2]))
+		{
+			ft_putstr("\033[1;31mConnection dropped\033[0m\n");
+			env->connected = 0;
+			return ;
+		}
+		if (FD_ISSET(env->fd, &env->sets[1]))
+			send_socket(env);
+		if (FD_ISSET(env->fd, &env->sets[0]))
+			read_socket(env);
+	}
 }

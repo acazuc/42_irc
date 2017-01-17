@@ -1,38 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   read_socket.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/06 21:35:56 by acazuc            #+#    #+#             */
-/*   Updated: 2017/01/17 14:45:29 by acazuc           ###   ########.fr       */
+/*   Created: 2017/01/17 14:22:50 by acazuc            #+#    #+#             */
+/*   Updated: 2017/01/17 14:29:25 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "client.h"
 
-static void	do_init_buf(t_env *env)
+void	read_socket(t_env *env)
 {
-	env->buf_stdin.cap = BUF_SIZE;
-	env->buf_write.cap = BUF_SIZE;
-	env->buf_write.lim = BUF_SIZE;
-}
+	ssize_t	readed;
 
-int			main(int ac, char **av)
-{
-	t_env	*env;
-
-	if (!(env = malloc(sizeof(*env))))
-		ERROR("malloc() failed");
-	ft_memset(env, 0, sizeof(*env));
-	if (ac == 2)
-		do_connect(env, av[1], "4242");
-	else if (ac == 3)
-		do_connect(env, av[1], av[2]);
-	do_init_buf(env);
-	while (1)
+	if ((readed = recv(env->fd, env->buf_read.data, BUF_SIZE, 0)) == -1)
+		ERROR("recv() failed");
+	else if (readed == 0)
 	{
-		looping(env);
+		ft_putstr("\033[1;31mConnection closed\033[0m\n");
+		env->connected = 0;
+		return ;
 	}
+	readed = write(1, env->buf_read.data, readed);
 }
