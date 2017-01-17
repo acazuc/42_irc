@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 18:35:13 by acazuc            #+#    #+#             */
-/*   Updated: 2017/01/06 21:33:32 by acazuc           ###   ########.fr       */
+/*   Updated: 2017/01/17 17:11:08 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 static int		cyalol(t_client *client)
 {
 	if (!client->chans)
+	{
+		client->chan = NULL;
 		return (buffer_write_str(&client->buf_w
 					, "\033[1;32mYou are now in no room\033[0m\n"));
+	}
 	client->chan = client->chans->chan;
 	if (!(buffer_write_str(&client->buf_w
 					, "\033[1;32mYou are now in ")))
@@ -29,7 +32,7 @@ static int		cyalol(t_client *client)
 	return (1);
 }
 
-static int		leave(t_client *client, char *c)
+static int		leave(t_env *env, t_client *client, char *c)
 {
 	t_chan_list	*lst;
 	t_chan_list	*prv;
@@ -40,7 +43,7 @@ static int		leave(t_client *client, char *c)
 	{
 		if (!ft_strcmp(c, lst->chan->name))
 		{
-			chan_remove_client(lst->chan, client);
+			chan_remove_client(env, lst->chan, client);
 			if (prv)
 				prv->next = lst->next;
 			else
@@ -73,6 +76,6 @@ int				cmd_leave(t_env *env, t_client *client, char **data)
 						, "\033[1;31mInvalid chan name\033[0m\n"));
 		ft_strcpy(s, data[1]);
 	}
-	return (leave(client, s));
+	return (leave(env, client, s));
 	(void)env;
 }

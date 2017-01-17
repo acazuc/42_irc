@@ -6,11 +6,11 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2017/01/06 13:39:23 by acazuc           ###   ########.fr        #
+#    Updated: 2017/01/17 18:24:25 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-all: libft client server
+all: libft client serveur
 
 libft:
 	@echo " - Making libft"
@@ -24,7 +24,7 @@ client:
 serveur:
 	@echo " - Making serveur"
 	@make -C serveur_d
-	@ln -sf serveur_d/server serveur
+	@ln -sf serveur_d/serveur serveur
 
 clean:
 	@echo " - Cleaning libft"
