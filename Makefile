@@ -6,7 +6,7 @@
 #    By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 06:50:12 by acazuc            #+#    #+#              #
-#    Updated: 2017/01/17 18:24:25 by acazuc           ###   ########.fr        #
+#    Updated: 2017/01/17 18:31:28 by acazuc           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ clean:
 	@echo " - Cleaning client"
 	@make -C client_d clean
 	@echo " - Cleaning server"
-	@make -C server_d clean
+	@make -C serveur_d clean
 
 fclean:
 	@echo " - Cleaning libft executable"
@@ -40,9 +40,9 @@ fclean:
 	@echo " - Cleaning client executable"
 	@make -C client_d fclean
 	@echo " - Cleaning server executable"
-	@make -C server_d fclean
+	@make -C serveur_d fclean
 	@rm -f client
-	@rm -f server
+	@rm -f serveur
 
 re: fclean all
 
