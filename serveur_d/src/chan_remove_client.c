@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 17:17:33 by acazuc            #+#    #+#             */
-/*   Updated: 2017/01/17 17:04:35 by acazuc           ###   ########.fr       */
+/*   Updated: 2017/01/20 12:50:36 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	do_remove(t_env *env, t_chan *chan)
 	}
 }
 
-void	chan_remove_client(t_env *env, t_chan *chan, t_client *client)
+void		chan_remove_client(t_env *env, t_chan *chan, t_client *client)
 {
 	t_client_list	*lst;
 	t_client_list	*prv;

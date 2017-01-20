@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 16:30:04 by acazuc            #+#    #+#             */
-/*   Updated: 2017/01/17 17:36:31 by acazuc           ###   ########.fr       */
+/*   Updated: 2017/01/20 12:42:10 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void		do_select(t_env *env)
 		ERROR("select() failed");
 }
 
-void	looping(t_env *env)
+void			looping(t_env *env)
 {
 	do_select(env);
 	if (FD_ISSET(0, &env->sets[2]))

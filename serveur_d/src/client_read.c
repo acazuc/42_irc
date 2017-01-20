@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 15:03:38 by acazuc            #+#    #+#             */
-/*   Updated: 2017/01/06 20:33:54 by acazuc           ###   ########.fr       */
+/*   Updated: 2017/01/20 12:46:41 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int		client_read(t_client *client)
 	if (client->buf_r.pos != client->buf_r.lim)
 	{
 		tmp_len = client->buf_r.lim - client->buf_r.pos;
-		ft_memcpy(client->buf_r.data, client->buf_r.data + client->buf_r.pos, tmp_len);
+		ft_memcpy(client->buf_r.data, client->buf_r.data
+				+ client->buf_r.pos, tmp_len);
 		client->buf_r.pos = tmp_len;
 	}
 	else

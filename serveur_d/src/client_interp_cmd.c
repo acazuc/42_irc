@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 15:49:45 by acazuc            #+#    #+#             */
-/*   Updated: 2017/01/06 21:38:22 by acazuc           ###   ########.fr       */
+/*   Updated: 2017/01/20 12:47:10 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int			client_interp_cmd(t_env *env, t_client *client, char *cmd)
 	if (!ft_strcmp(data[0], "/join"))
 		res = cmd_join(env, client, data);
 	else if (!ft_strcmp(data[0], "/leave"))
-		res =cmd_leave(env, client, data);
+		res = cmd_leave(env, client, data);
 	else if (!ft_strcmp(data[0], "/who"))
 		res = cmd_who(env, client, data);
 	else if (!ft_strcmp(data[0], "/nick"))

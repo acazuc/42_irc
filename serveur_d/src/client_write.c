@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 15:10:42 by acazuc            #+#    #+#             */
-/*   Updated: 2017/01/06 15:19:45 by acazuc           ###   ########.fr       */
+/*   Updated: 2017/01/20 12:46:29 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int		client_write(t_client *client)
 	ssize_t	written;
 
 	buffer_flip(&client->buf_w);
-	if ((written = send(client->fd, client->buf_w.data, client->buf_w.lim, 0)) == -1)
+	if ((written = send(client->fd, client->buf_w.data
+					, client->buf_w.lim, 0)) == -1)
 		return (-1);
 	client->buf_w.pos += written;
 	tmp_len = client->buf_w.lim - client->buf_w.pos;
