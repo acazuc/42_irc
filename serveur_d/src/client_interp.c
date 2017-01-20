@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 15:27:29 by acazuc            #+#    #+#             */
-/*   Updated: 2017/01/17 19:17:03 by acazuc           ###   ########.fr       */
+/*   Updated: 2017/01/20 16:01:12 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int			client_interp(t_env *env, t_client *client)
 	size_t	end_pos;
 	char	*cmd;
 
-	get_pos(client->buf_r.data, client->buf_r.lim, &end_pos);
+	get_pos(client->buf_r.data + client->buf_r.pos
+			, client->buf_r.lim - client->buf_r.pos, &end_pos);
 	if (end_pos == BUF_SIZE + 1)
 	{
 		if (client->buf_r.lim == client->buf_r.cap)
