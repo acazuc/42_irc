@@ -6,7 +6,7 @@
 /*   By: acazuc <acazuc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 18:44:27 by acazuc            #+#    #+#             */
-/*   Updated: 2017/01/22 12:30:27 by acazuc           ###   ########.fr       */
+/*   Updated: 2017/02/26 08:04:48 by acazuc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static void		join_chan(t_client *client, t_chan *chan)
 {
 	t_chan_list	*new;
 
+	client->chan = chan;
 	if (is_in(client, chan))
 		return ;
 	if (!(new = malloc(sizeof(*new))))
@@ -51,7 +52,6 @@ static void		join_chan(t_client *client, t_chan *chan)
 	new->chan = chan;
 	new->next = client->chans;
 	client->chans = new;
-	client->chan = chan;
 }
 
 int				cmd_join(t_env *env, t_client *client, char **data)
